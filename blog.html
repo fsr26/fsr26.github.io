@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Commonplace — A Personal Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1a1a;
+      --ink-muted: #5a5a5a;
+      --ink-faint: #999;
+      --rule:      #d8d4cc;
+      --bg:        #faf9f6;
+      --bg-card:   #ffffff;
+      --accent:    #3b4a6b;
+      --serif:     'Lora', Georgia, serif;
+      --sans:      'Source Sans 3', system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    /* ── Site header ─────────────────────────────── */
+    header {
+      border-bottom: 1px solid var(--rule);
+      padding: 2.5rem 0 2rem;
+      text-align: center;
+    }
+
+    .site-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .site-subtitle {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-top: 0.4rem;
+    }
+
+    nav {
+      margin-top: 1.25rem;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      margin: 0 1rem;
+      transition: color 0.15s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* ── Layout ──────────────────────────────────── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    main {
+      padding: 3.5rem 0 5rem;
+    }
+
+    /* ── Section year label ───────────────────────── */
+    .year-marker {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Post entry ──────────────────────────────── */
+    .post {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 0 2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .post-date {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-faint);
+      padding-top: 0.35rem;
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    .post-month { display: block; }
+    .post-day   { display: block; font-size: 1.4rem; font-weight: 600; color: var(--ink-muted); line-height: 1; margin-top: 2px; }
+
+    .post-body {}
+
+    .post-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+
+    .post-title a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .post-title a:hover { color: var(--accent); }
+
+    .post-excerpt {
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-bottom: 0.65rem;
+    }
+
+    .post-meta {
+      font-family: var(--sans);
+      font-size: 0.76rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-faint);
+    }
+
+    .post-meta .tag {
+      display: inline-block;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 1px 7px;
+      margin-right: 5px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .post-meta .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    .read-more {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.35rem;
+    }
+
+    .read-more:hover { text-decoration: underline; }
+
+    /* ── Pagination ──────────────────────────────── */
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3rem;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+    }
+
+    .pagination a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .pagination a:hover { text-decoration: underline; }
+
+    /* ── Footer ──────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 0;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+    }
+
+    footer a { color: var(--ink-faint); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── Responsive ───────────────────────────────── */
+    @media (max-width: 520px) {
+      .post { grid-template-columns: 60px 1fr; gap: 0 1rem; }
+      .post-day { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <a class="site-title" href="#">The Commonplace</a>
+      <p class="site-subtitle">Essays, observations &amp; notes</p>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Archive</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- ── 2025 ─────────────────────────────────── -->
+      <p class="year-marker">2025</p>
+
+      <article class="post">
+        <div class="post-date">
+          <span class="post-month">Nov</span>
+          <span class="post-day">18</span>
+        </div>
+        <div class="post-body">
+          <h2 class="post-title">
+            <a href="#">On the Virtue of Writing Things Down</a>
+          </h2>
+          <p class="post-excerpt">
+            The commonplace book was once a standard tool of the educated mind — a personal archive of passages, ideas, and reflections gathered over a lifetime. We have largely abandoned the habit, to our detriment.
+          </p>
+          <div class="post-meta">
+            <a class="tag" href="#">Habit</a>
+            <a class="tag" href="#">Writing</a>
+          </div>
+          <br/>
+          <a class="read-more" href="#">Continue reading →</a>
+        </div>
+      </article>
+
+      <article class="post">
+        <div class="post-date">
+          <span class="post-month">Sep</span>
+          <span class="post-day">04</span>
+        </div>
+        <div class="post-body">
+          <h2 class="post-title">
+            <a href="#">A Defence of Slowness</a>
+          </h2>
+          <p class="post-excerpt">
+            In an age that prizes velocity above all, there is quiet rebellion in choosing to proceed deliberately. Speed is often mistaken for productivity. The two are not the same.
+          </p>
+          <div class="post-meta">
+            <a class="tag" href="#">Reflection</a>
+            <a class="tag" href="#">Culture</a>
+          </div>
+          <br/>
+          <a class="read-more" href="#">Continue reading →</a>
+        </div>
+      </article>
+
+      <article class="post">
+        <div class="post-date">
+          <span class="post-month">Jun</span>
+          <span class="post-day">22</span>
+        </div>
+        <div class="post-body">
+          <h2 class="post-title">
+            <a href="#">What Libraries Teach Us About Memory</a>
+          </h2>
+          <p class="post-excerpt">
+            Every library is a bet against forgetting. To walk its stacks is to feel the weight of what has been preserved — and to sense, dimly, all that has been lost.
+          </p>
+          <div class="post-meta">
+            <a class="tag" href="#">Books</a>
+            <a class="tag" href="#">History</a>
+          </div>
+          <br/>
+          <a class="read-more" href="#">Continue reading →</a>
+        </div>
+      </article>
+
+      <!-- ── 2024 ─────────────────────────────────── -->
+      <p class="year-marker">2024</p>
+
+      <article class="post">
+        <div class="post-date">
+          <span class="post-month">Dec</span>
+          <span class="post-day">31</span>
+        </div>
+        <div class="post-body">
+          <h2 class="post-title">
+            <a href="#">Notes at Year's End</a>
+          </h2>
+          <p class="post-excerpt">
+            A brief accounting of what was read, thought, and left unfinished. Some years close neatly; this one did not.
+          </p>
+          <div class="post-meta">
+            <a class="tag" href="#">Annual</a>
+          </div>
+          <br/>
+          <a class="read-more" href="#">Continue reading →</a>
+        </div>
+      </article>
+
+      <article class="post">
+        <div class="post-date">
+          <span class="post-month">Aug</span>
+          <span class="post-day">11</span>
+        </div>
+        <div class="post-body">
+          <h2 class="post-title">
+            <a href="#">The Patience of Maps</a>
+          </h2>
+          <p class="post-excerpt">
+            Maps are not neutral. Every projection is a decision, and every decision encodes assumptions about what matters most. Cartography is argument made visual.
+          </p>
+          <div class="post-meta">
+            <a class="tag" href="#">Geography</a>
+            <a class="tag" href="#">Design</a>
+          </div>
+          <br/>
+          <a class="read-more" href="#">Continue reading →</a>
+        </div>
+      </article>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <span>Page 1 of 6</span>
+        <a href="#">Older entries →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 The Commonplace &nbsp;·&nbsp; <a href="#">RSS</a> &nbsp;·&nbsp; <a href="#">Privacy</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
